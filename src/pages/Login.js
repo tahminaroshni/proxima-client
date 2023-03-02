@@ -23,7 +23,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             className='w-96 bg-transparent border focus:border-sky-700 outline-none rounded-lg p-3 border-slate-500' type="password" id="password" placeholder='Enter your password' />
         </div>
-        <button type="submit" className="form-control bg-sky-700 text-sky-50 rounded-md text-center font-semibold uppercase tracking-wider p-3">Login</button>
+        <button type="submit" className="form-control bg-sky-700 text-sky-50 rounded-md text-center font-medium text-lg uppercasefont-semibold uppercase tracking-wider p-3">Login</button>
       </form>
     </div>
   );
