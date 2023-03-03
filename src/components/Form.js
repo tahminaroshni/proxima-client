@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useProjectContext } from '../hooks/useProjectContext';
 
 const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
@@ -11,9 +12,15 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
   const [error, setError] = useState("");
   const [emptyFields, setEmptyFields] = useState([]);
   const { dispatch } = useProjectContext();
+  const { user } = useAuthContext();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      setError("You must be logged in!");
+      return;
+    }
 
     const addedProject = { title, tech, budget, duration, manager, dev };
     if (!project) {
@@ -21,7 +28,8 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
       const res = await fetch('http://localhost:5000/api/projects', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
         },
         body: JSON.stringify(addedProject)
       });
@@ -49,7 +57,8 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
       const res = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
         },
         body: JSON.stringify(addedProject)
       });
@@ -84,40 +93,40 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields.includes('title') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="text" id="title" placeholder='Project title' />
+            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields?.includes('title') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="text" id="title" placeholder='Project title' />
         </div>
         <div className="from-control flex flex-col gap-2">
           <label className='cursor-pointer' htmlFor="tech">Technologies</label>
           <input
             value={tech}
-            onChange={(e) => setTech(e.target.value)} className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields.includes('tech') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="text" id="tech" placeholder='Project technologies' />
+            onChange={(e) => setTech(e.target.value)} className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields?.includes('tech') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="text" id="tech" placeholder='Project technologies' />
         </div>
         <div className="from-control flex flex-col gap-2">
           <label className='cursor-pointer' htmlFor="budget">Budget</label>
           <input
             value={budget}
-            onChange={(e) => setBudget(e.target.value)} className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields.includes('budget') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="number" id="budget" placeholder='Project budget' />
+            onChange={(e) => setBudget(e.target.value)} className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields?.includes('budget') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="number" id="budget" placeholder='Project budget' />
         </div>
         <div className="from-control flex flex-col gap-2">
           <label className='cursor-pointer' htmlFor="duration">Duration</label>
           <input
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields.includes('duration') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="number" id="duration" placeholder='Project duration' />
+            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields?.includes('duration') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="number" id="duration" placeholder='Project duration' />
         </div>
         <div className="from-control flex flex-col gap-2">
           <label className='cursor-pointer' htmlFor="manager">Manager</label>
           <input
             value={manager}
             onChange={(e) => setManager(e.target.value)}
-            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields.includes('manager') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="text" id="manager" placeholder='Project manager' />
+            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields?.includes('manager') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="text" id="manager" placeholder='Project manager' />
         </div>
         <div className="from-control flex flex-col gap-2">
           <label className='cursor-pointer' htmlFor="dev">Developers</label>
           <input
             value={dev}
             onChange={(e) => setDev(e.target.value)}
-            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields.includes('dev') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="number" id="dev" placeholder='Number of developers' />
+            className={` bg-transparent border focus:border-sky-700 outline-none rounded ${emptyFields?.includes('dev') ? 'border-rose-500' : ' border-slate-500'} ${project ? 'p-1' : 'p-3'}`} type="number" id="dev" placeholder='Number of developers' />
         </div>
         <button className={`form-control bg-sky-700 text-sky-50 rounded-md text-center font-medium uppercase tracking-wider  ${project ? 'p-1' : 'p-3'}`} type="submit">
           {

@@ -1,13 +1,19 @@
 import { useEffect } from "react";
 import Project from "../components/Project";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useProjectContext } from "../hooks/useProjectContext";
 
 const Projects = () => {
   const { projects, dispatch } = useProjectContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     const getProjects = async () => {
-      const res = await fetch('http://localhost:5000/api/projects');
+      const res = await fetch('http://localhost:5000/api/projects', {
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      });
       if (!res.ok) {
         throw new Error("Something went wrong!");
       }
@@ -17,8 +23,11 @@ const Projects = () => {
       }
     };
 
-    getProjects();
-  }, [dispatch])
+    if (user) {
+      getProjects();
+    }
+
+  }, [dispatch, user])
 
   return (
     <div className="col-span-3">

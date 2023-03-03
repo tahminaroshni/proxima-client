@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useProjectContext } from "../hooks/useProjectContext";
 
 const Navbar = () => {
-  const { user, dispatch } = useAuthContext();
+  const { user, dispatch: userDispatch } = useAuthContext();
+  const { dispatch: projectsDispatch } = useProjectContext();
 
   const handleLogout = () => {
     // update UI
-    dispatch({ type: 'LOGOUT' });
+    userDispatch({ type: 'LOGOUT' });
+    projectsDispatch({ type: 'SET_PROJECTS', payload: null })
 
     // clear localstorage
     localStorage.removeItem('user');

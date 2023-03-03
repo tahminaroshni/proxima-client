@@ -3,9 +3,11 @@ import { currencyFormatter } from "../utils/currencyFormatter";
 import moment from "moment";
 import { useState } from "react";
 import Form from "./Form";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Project = ({ project }) => {
   const { dispatch } = useProjectContext();
+  const { user } = useAuthContext();
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -20,8 +22,15 @@ const Project = ({ project }) => {
   }
 
   const handleDelete = async () => {
+    if (!user) {
+      return;
+    }
+
     const res = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
     });
     const json = await res.json();
     if (!res.ok) throw new Error(json.error);
