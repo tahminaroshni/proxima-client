@@ -3,7 +3,7 @@ import { createContext, useReducer } from "react";
 export const AuthContext = createContext();
 
 const initialState = {
-  user: null
+  user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
 }
 
 const authReducer = (state, action) => {
@@ -24,7 +24,7 @@ const authReducer = (state, action) => {
 }
 
 const AuthContextProvider = ({ children }) => {
-  const { state, dispatch } = useReducer(authReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
