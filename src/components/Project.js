@@ -26,7 +26,7 @@ const Project = ({ project }) => {
       return;
     }
 
-    const res = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
+    const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/projects/${project._id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${user.token}`

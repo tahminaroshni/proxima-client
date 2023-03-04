@@ -9,7 +9,7 @@ const Navbar = () => {
   const handleLogout = () => {
     // update UI
     userDispatch({ type: 'LOGOUT' });
-    projectsDispatch({ type: 'SET_PROJECTS', payload: null })
+    projectsDispatch({ type: 'SET_PROJECTS', payload: [] })
 
     // clear localstorage
     localStorage.removeItem('user');

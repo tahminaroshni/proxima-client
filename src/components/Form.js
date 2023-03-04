@@ -25,7 +25,7 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
     const addedProject = { title, tech, budget, duration, manager, dev };
     if (!project) {
 
-      const res = await fetch('http://localhost:5000/api/projects', {
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
     }
 
     if (project) {
-      const res = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/projects/${project._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

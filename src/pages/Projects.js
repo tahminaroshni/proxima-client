@@ -9,7 +9,7 @@ const Projects = () => {
 
   useEffect(() => {
     const getProjects = async () => {
-      const res = await fetch('http://localhost:5000/api/projects', {
+      const res = await fetch(`${process.env.REACT_APP_BASE_URL}/api/projects`, {
         headers: {
           'Authorization': `Bearer ${user.token}`
         }
@@ -33,7 +33,7 @@ const Projects = () => {
     <div className="col-span-3">
       <h2 className="text-2xl text-sky-400">
         {
-          !projects.length ? 'No Projects' : 'Your Projects'
+          projects.length < 1 ? 'No Projects' : 'Your Projects'
         }
       </h2>
 
