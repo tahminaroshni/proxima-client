@@ -31,7 +31,11 @@ const Projects = () => {
 
   return (
     <div className="col-span-3">
-      <h2 className="text-2xl text-sky-400">Your Projects</h2>
+      <h2 className="text-2xl text-sky-400">
+        {
+          !projects.length ? 'No Projects' : 'Your Projects'
+        }
+      </h2>
 
       <div className="projects-container grid grid-cols-2 gap-5 mt-5">
         {
