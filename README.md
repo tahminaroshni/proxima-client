@@ -22,25 +22,25 @@ Proxima is a web application that allows users to add, update, and delete their 
  * **JWT:** JSON Web Tokens for authentication and authorization in web applications.
  * **Bcrypt:** Password hashing function for securely storing passwords in the database.
  
-##Installation
+## Installation
  
 To install the project, you'll need to clone the repository and set up the environment variables for both the client-side and server-side.
- 1. Clone the client repository:
+ 1. Clone the client repository:\
     `git clone https://github.com/tahminaroshni/proxima-client.git`
- 2. Clone the server repository:
+ 2. Clone the server repository:\
     `git clone https://github.com/tahminaroshni/proxima-server.git`
- 3. Install dependencies run for both the client and server side:
+ 3. Install dependencies run for both the client and server side:\
     `npm install`
- 4. Set up environment variables:
-   * For the client-side, create a `.env` file in the root directory and add the following line, replacing `<base_url>` with the URL of the server-side:
+ 4. Set up environment variables:\
+   * For the client-side, create a `.env` file in the root directory and add the following line, replacing `<base_url>` with the URL of the server-side:\
      `REACT_APP_BASE_URL=<base_url>`
-   * For the server-side, create a `.env` file in the root directory and add the following line, replacing `<mongo_uri>` with the MongoDB URI and `<secret>` with a secret string for JWT:
+   * For the server-side, create a `.env` file in the root directory and add the following line, replacing `<mongo_uri>` with the MongoDB URI and `<secret>` with a secret string for JWT:\
      `MONgO_URI=<mongo_uri>`
      `SECRET=<secret>`
- 5. Start both the client and server side:
+ 5. Start both the client and server side:\
      `npm start`
      
- ##Links
+ ## Links
  
  * [Live Demo](Live Demo)
  * [Front-End Repository](Front-End Repository)
