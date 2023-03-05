@@ -137,7 +137,7 @@ const Form = ({ project, setIsModalOpen, setIsOverlayOpen }) => {
       </form>
       <div>
         {
-          error ? error : ''
+          error && <p className="text-rose-500">{error}</p>
         }
       </div>
     </div>
